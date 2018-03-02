@@ -8,7 +8,7 @@ public class Employee {
 	/**
 	 * Code
 	 */
-	private int code;
+	private String code;
 	
 	/**
 	 * Flag Busy
@@ -24,15 +24,15 @@ public class Employee {
 	 * Create Employee with Code
 	 * @param code Employee Code 
 	 */
-	public Employee(int code) {
+	public Employee(String code) {
 		this.code = code;
 	}
 
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 

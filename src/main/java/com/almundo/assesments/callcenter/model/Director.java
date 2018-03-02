@@ -7,10 +7,10 @@ public class Director extends Employee {
 
 	/**
 	 * Create Director with Code
-	 * @param code Director Code 
+	 * @param codeEmployee Director Code 
 	 */
-	public Director(int code) {
+	public Director(String codeEmployee) {
 		
-		super(code);
+		super(codeEmployee);
 	}
 }

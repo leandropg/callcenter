@@ -7,10 +7,10 @@ public class Supervisor extends Employee {
 
 	/**
 	 * Create Supervisor with Code
-	 * @param code Supervisor Code 
+	 * @param codeEmployee Supervisor Code 
 	 */
-	public Supervisor(int code) {
+	public Supervisor(String codeEmployee) {
 		
-		super(code);
+		super(codeEmployee);
 	}
 }

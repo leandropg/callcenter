@@ -2,8 +2,8 @@ package com.almundo.assesments.callcenter;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -14,6 +14,7 @@ import com.almundo.assesments.callcenter.model.Operator;
 import com.almundo.assesments.callcenter.model.Supervisor;
 import com.almundo.assesments.callcenter.process.CallGenerator;
 import com.almundo.assesments.callcenter.process.Dispatcher;
+import com.almundo.assesments.callcenter.process.FreeEmployeeThread;
 
 /**
  * Call Center Application
@@ -41,6 +42,7 @@ public class CallCenter {
     public void startApp() {
   
     	CallGenerator callGenerator;
+    	FreeEmployeeThread freeEmployeeThread;
     	
     	// Load Log Configuration
     	loadLogConfiguration();
@@ -55,6 +57,10 @@ public class CallCenter {
     	LOGGER.log(Level.INFO, "Waiting Calls...");
     	callGenerator = new CallGenerator();
     	callGenerator.start();
+    	
+    	// Start Thread Free Employees
+    	freeEmployeeThread = new FreeEmployeeThread();
+    	freeEmployeeThread.start();
     }
     
     /**
@@ -89,23 +95,23 @@ public class CallCenter {
     	List<Employee> lstDirector;
 
     	// Fill List Operator
-    	lstOperator = new ArrayList<>();
-    	lstOperator.add(new Operator(1));
-    	lstOperator.add(new Operator(2));
-    	lstOperator.add(new Operator(3));
-    	lstOperator.add(new Operator(4));
-    	lstOperator.add(new Operator(5));
-    	lstOperator.add(new Operator(6));
+    	lstOperator = new CopyOnWriteArrayList<>();
+    	lstOperator.add(new Operator("OP-1"));
+    	lstOperator.add(new Operator("OP-2"));
+    	lstOperator.add(new Operator("OP-3"));
+    	lstOperator.add(new Operator("OP-4"));
+    	lstOperator.add(new Operator("OP-5"));
+    	lstOperator.add(new Operator("OP-6"));
 
     	// Fill List Supervisor
-    	lstSupervisor = new ArrayList<>();
-    	lstSupervisor.add(new Supervisor(7));
-    	lstSupervisor.add(new Supervisor(8));
-    	lstSupervisor.add(new Supervisor(9));
+    	lstSupervisor = new CopyOnWriteArrayList<>();
+    	lstSupervisor.add(new Supervisor("SUP-1"));
+    	lstSupervisor.add(new Supervisor("SUP-2"));
+    	lstSupervisor.add(new Supervisor("SUP-3"));
     	
     	// Fill List Director
-    	lstDirector = new ArrayList<>();
-    	lstDirector.add(new Director(10));
+    	lstDirector = new CopyOnWriteArrayList<>();
+    	lstDirector.add(new Director("DIR-1"));
     	
     	// Set Employee Lists in the Dispatcher
     	Dispatcher.getInstance().setLstOperator(lstOperator);
