@@ -6,6 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import com.almundo.assesments.callcenter.process.CallGenerator;
+
 /**
  * Call Center Application
  */
@@ -30,12 +32,21 @@ public class CallCenter {
      * Start Application
      */
     public void startApp() {
-    	    	
+  
+    	CallGenerator callGenerator;
+    	
     	// Load Log Configuration
     	loadLogConfiguration();
     	
     	// Show Message to User
     	LOGGER.log(Level.INFO, "Start Call Center Application");
+    	LOGGER.log(Level.INFO, "It's 7:00 am, the employees are arrived");
+    	
+    	// Init Incoming Call
+    	LOGGER.log(Level.INFO, "It's 8:00 am, the Call Center is open");
+    	LOGGER.log(Level.INFO, "Waiting Calls...");
+    	callGenerator = new CallGenerator();
+    	callGenerator.start();
     }
     
     /**

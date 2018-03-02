@@ -12,9 +12,10 @@ public class LogFormatter extends Formatter {
 
 	/**
 	 * Log Format
+	 * @record Log Record
 	 */
 	@Override
-	public String format(LogRecord record) {
+	public String format(LogRecord logRecord) {
 		
 		Calendar calendar;
 		SimpleDateFormat simpleDateFormat;
@@ -30,9 +31,10 @@ public class LogFormatter extends Formatter {
 		sb = new StringBuilder();
 		sb.append(simpleDateFormat.format(calendar.getTime()));
 		sb.append(" [");
-		sb.append(record.getLevel().getName());
+		sb.append(logRecord.getLevel().getName());
 		sb.append("] > ");
-		sb.append(record.getMessage());
+		sb.append(logRecord.getMessage());
+		sb.append("\n");
 		return sb.toString();
 	}
 
