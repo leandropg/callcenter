@@ -51,13 +51,6 @@ public class Dispatcher {
 	}
 	
 	/**
-	 * Dispatcher
-	 */
-	public Dispatcher() {
-		
-	}
-	
-	/**
 	 * Dispatch Call
 	 * @param incomingCall Incoming Call
 	 */
@@ -72,7 +65,7 @@ public class Dispatcher {
 				// Try Assign Call to Director
 				if(!assignCallEmployee(incomingCall, lstDirector)) {
 					
-					LOGGER.log(Level.INFO, String.format("Ignore Call Id %s", incomingCall.getCallId()));
+					LOGGER.log(Level.INFO, String.format("Ignore Call... Id: %s Duration: %d", incomingCall.getId(), incomingCall.getDuration()));
 				}
 			}
 		}
@@ -102,7 +95,7 @@ public class Dispatcher {
 								
 				// Set Flag Call Assigned
 				isCallAssigned = true;
-				LOGGER.log(Level.INFO, String.format("Incoming Call Id %s assigned to Employee %s", incomingCall.getCallId(), employee.getCode()));
+				LOGGER.log(Level.INFO, String.format("Incoming Call Id %d assigned to Employee %s", incomingCall.getId(), employee.getCode()));
 				break;
 			}
 		}
