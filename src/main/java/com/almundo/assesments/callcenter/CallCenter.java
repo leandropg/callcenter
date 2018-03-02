@@ -16,6 +16,8 @@ import com.almundo.assesments.callcenter.process.CallGenerator;
 import com.almundo.assesments.callcenter.process.Dispatcher;
 import com.almundo.assesments.callcenter.process.HangUpCallThread;
 
+import util.DelayUtil;
+
 /**
  * Call Center Application
  */
@@ -51,10 +53,12 @@ public class CallCenter {
     	LOGGER.log(Level.INFO, "Start Call Center Application!!!");
     	LOGGER.log(Level.INFO, "It's 7:00 am... The call center employees are arrived...");
     	configureCallCenterEmployees();
+    	DelayUtil.delaySeconds(3);
     	
     	// Start Call Generator
-    	LOGGER.log(Level.INFO, "It's 8:00 am... the operation is open");
+    	LOGGER.log(Level.INFO, "It's 8:00 am... The operation is starting...");
     	LOGGER.log(Level.INFO, "Waiting Incoming Calls...");
+    	DelayUtil.delaySeconds(2);
     	callGenerator = new CallGenerator();
     	callGenerator.start();
     	

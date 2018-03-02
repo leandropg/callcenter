@@ -95,7 +95,7 @@ public class Dispatcher {
 								
 				// Set Flag Call Assigned
 				isCallAssigned = true;
-				LOGGER.log(Level.INFO, String.format("Incoming Call Id %d assigned to Employee %s", incomingCall.getId(), employee.getCode()));
+				LOGGER.log(Level.INFO, String.format("Incoming Call Id %d assigned to Employee %s. Duration: %d Seconds", incomingCall.getId(), employee.getCode(), incomingCall.getDuration()));
 				break;
 			}
 		}
