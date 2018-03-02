@@ -32,13 +32,13 @@ public class HangUpCallThread extends Thread {
 			// Delay 1 Second
 			DelayUtil.delaySeconds(1);
 
-			// Free Operators
+			// Hang Up Operators Calls
 			hangUpCall(Dispatcher.getInstance().getLstOperator());
 			
-			// Free Supervisors
+			// Hang Up Supervisors Calls
 			hangUpCall(Dispatcher.getInstance().getLstSupervisor());
 			
-			// Free Directors
+			// Hang Up Directors Calls
 			hangUpCall(Dispatcher.getInstance().getLstDirector());
 		}
 	}
@@ -50,6 +50,7 @@ public class HangUpCallThread extends Thread {
 	private void hangUpCall(List<Employee> lstEmployee) {
 		
 		Call callAssigned;
+		Call callInHold;
 		
 		// Iterate over all Employee List
 		for(Employee employee : lstEmployee) {
@@ -68,13 +69,30 @@ public class HangUpCallThread extends Thread {
 				
 				} else {
 					
-					LOGGER.log(Level.INFO, String.format("Hang Up Call Id: %d. Free Employee: %s", callAssigned.getId(), employee.getCode()));
-					
 					// Hang Up Call
+					LOGGER.log(Level.INFO, String.format("Hang Up Call %d. Free Employee %s", callAssigned.getId(), employee.getCode()));
+					Dispatcher.getInstance().getLstCallsInProgress().remove(callAssigned);
 					employee.setCallAssigned(null);
 					
-					// Free Employee
-					employee.setBusy(false);
+					// Check if exist Calls in Hold
+					if(!Dispatcher.getInstance().getLstCallsInHold().isEmpty() &&
+							Dispatcher.getInstance().getLstCallsInProgress().size() < Dispatcher.MAXIMUM_SIMULTANEOUS_CALLS) {
+				
+						// Obtain a Call in Hold
+						callInHold = Dispatcher.getInstance().getLstCallsInHold().remove(0);
+						
+						// Add New Call to List Calls in Progress
+						Dispatcher.getInstance().getLstCallsInProgress().add(callInHold);
+						
+						// Set Call Assigned
+						employee.setCallAssigned(callInHold);
+						LOGGER.log(Level.INFO, String.format("Call in Hold %d assigned to Employee %s. Call Duration %d Seconds", callInHold.getId(), employee.getCode(), callInHold.getDuration()));
+					
+					} else {
+					
+						// Free Employee
+						employee.setBusy(false);
+					}
 				}
 			}
 		}

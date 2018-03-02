@@ -1,6 +1,7 @@
 package com.almundo.assesments.callcenter.process;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,9 +19,24 @@ public class Dispatcher {
 	private static final Logger LOGGER = Logger.getLogger(Dispatcher.class.getName());
 	
 	/**
+	 * Constant Maximum Simultaneous Calls
+	 */
+	public static final int MAXIMUM_SIMULTANEOUS_CALLS = 10;
+	
+	/**
 	 * Dispatcher Instance
 	 */
 	private static Dispatcher instance;
+	
+	/**
+	 * List Calls in Progress
+	 */
+	private List<Call> lstCallsInProgress;
+
+	/**
+	 * List Calls in Hold
+	 */
+	private List<Call> lstCallsInHold;
 	
 	/**
 	 * List Operators
@@ -50,6 +66,13 @@ public class Dispatcher {
 		return instance;
 	}
 	
+	public Dispatcher() {
+		
+		// Init List Calls
+		lstCallsInProgress = new CopyOnWriteArrayList<>();
+		lstCallsInHold = new CopyOnWriteArrayList<>();
+	}
+	
 	/**
 	 * Dispatch Call
 	 * @param incomingCall Incoming Call
@@ -57,49 +80,60 @@ public class Dispatcher {
 	public void dispatchCall(Call incomingCall) {
 
 		// Try Assign Call to Operator
-		if(!assignCallEmployee(incomingCall, lstOperator)) {
+		if(!assignCallToEmployee(incomingCall, lstOperator)) {
 			
 			// Try Assign Call to Supervisor
-			if(!assignCallEmployee(incomingCall, lstSupervisor)) {
+			if(!assignCallToEmployee(incomingCall, lstSupervisor)) {
 				
 				// Try Assign Call to Director
-				if(!assignCallEmployee(incomingCall, lstDirector)) {
+				if(!assignCallToEmployee(incomingCall, lstDirector)) {
 					
-					LOGGER.log(Level.INFO, String.format("Ignore Call... Id: %s Duration: %d", incomingCall.getId(), incomingCall.getDuration()));
+					// Put Call in Hold
+					LOGGER.log(Level.INFO, String.format("Put Call Id %s in Hold...", incomingCall.getId()));
+					lstCallsInHold.add(incomingCall);
 				}
 			}
 		}
 	}
 	
 	/**
-	 * Assign Call Employee
+	 * Assign Call to Employee
 	 * @param incomingCall Incoming Call
 	 * @param lstEmployee
 	 * @return Flag Call Assigned
 	 */
-	private boolean assignCallEmployee(Call incomingCall, List<Employee> lstEmployee) {
+	private boolean assignCallToEmployee(Call incomingCall, List<Employee> lstEmployee) {
 		
 		boolean isCallAssigned = false;
 		
 		// Try assign call to an Employee
 		for(Employee employee : lstEmployee) {
 			
-			// Check if Employee not is Busy
-			if(!employee.isBusy()) {
+			// Check if Employee is not Busy and Maximum Call Simultaneous
+			if(!employee.isBusy() && lstCallsInProgress.size() < MAXIMUM_SIMULTANEOUS_CALLS) {
+			
+				// Add Call to List Calls in Progress
+				lstCallsInProgress.add(incomingCall);
 				
-				// Set Call Assigned
+				// Assign Call to Employee
 				employee.setCallAssigned(incomingCall);
-				
-				// Set Flag Busy
 				employee.setBusy(true);
+				LOGGER.log(Level.INFO, String.format("Incoming Call %d assigned to Employee %s. Call Duration %d Seconds", incomingCall.getId(), employee.getCode(), incomingCall.getDuration()));
 								
 				// Set Flag Call Assigned
 				isCallAssigned = true;
-				LOGGER.log(Level.INFO, String.format("Incoming Call Id %d assigned to Employee %s. Duration: %d Seconds", incomingCall.getId(), employee.getCode(), incomingCall.getDuration()));
-				break;
+				break;	
 			}
 		}
 		return isCallAssigned;
+	}
+
+	public List<Call> getLstCallsInProgress() {
+		return lstCallsInProgress;
+	}
+
+	public List<Call> getLstCallsInHold() {
+		return lstCallsInHold;
 	}
 
 	public List<Employee> getLstOperator() {
