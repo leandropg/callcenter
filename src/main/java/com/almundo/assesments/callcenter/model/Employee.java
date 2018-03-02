@@ -6,15 +6,49 @@ package com.almundo.assesments.callcenter.model;
 public class Employee {
 
 	/**
-	 * Flag Attending Call
+	 * Code
 	 */
-	private boolean isAttendingCall;
-
-	public boolean isAttendingCall() {
-		return isAttendingCall;
+	private int code;
+	
+	/**
+	 * Flag Busy
+	 */
+	private boolean isBusy;
+	
+	/**
+	 * Call Assigned
+	 */
+	private Call callAssigned;
+	
+	/**
+	 * Create Employee with Code
+	 * @param code Employee Code 
+	 */
+	public Employee(int code) {
+		this.code = code;
 	}
 
-	public void setAttendingCall(boolean isAttendingCall) {
-		this.isAttendingCall = isAttendingCall;
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
+	public boolean isBusy() {
+		return isBusy;
+	}
+
+	public void setBusy(boolean isBusy) {
+		this.isBusy = isBusy;
+	}
+
+	public Call getCallAssigned() {
+		return callAssigned;
+	}
+
+	public void setCallAssigned(Call callAssigned) {
+		this.callAssigned = callAssigned;
 	}
 }

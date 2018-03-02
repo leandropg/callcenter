@@ -27,7 +27,7 @@ public class CallGenerator extends Thread {
 		
 		int intRandom;
 		Calendar calendar;
-		Call call;
+		Call incomingCall;
 		Random random;
 		SimpleDateFormat sdf;
 		String callId;
@@ -55,7 +55,10 @@ public class CallGenerator extends Thread {
 				
 				// Create New Call
 				LOGGER.log(Level.INFO, String.format("Incoming Call. Ring! Ring! Call Id: %s", callId));
-				call = new Call(callId);
+				incomingCall = new Call(callId);
+				
+				// Send Call to Dispatcher
+				Dispatcher.getInstance().dispatchCall(incomingCall);
 
 			} catch (InterruptedException e) {
 				
