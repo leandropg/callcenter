@@ -10,7 +10,7 @@ import com.almundo.assesments.callcenter.model.Employee;
 import util.DelayUtil;
 
 /**
- * HangUp Call Thread
+ * Hang Up Call Thread
  */
 public class HangUpCallThread extends Thread {
 
@@ -18,13 +18,26 @@ public class HangUpCallThread extends Thread {
 	 * Logger Instance
 	 */
 	private static final Logger LOGGER = Logger.getLogger(HangUpCallThread.class.getName());
+
+	/**
+	 * Dispatcher Instance
+	 */
+	private Dispatcher dispatcher;
+	
+	/**
+	 * Hang Up Call Thread
+	 * @param dispatcher Dispatcher Instance
+	 */
+	public HangUpCallThread(Dispatcher dispatcher) {
+		
+		this.dispatcher = dispatcher;
+	}
 	
 	/**
 	 * Run Method
 	 */
 	@Override
 	public void run() {
-		super.run();
 		
 		// Infinite Loop
 		while(true) {
@@ -33,13 +46,13 @@ public class HangUpCallThread extends Thread {
 			DelayUtil.delaySeconds(1);
 
 			// Hang Up Operators Calls
-			hangUpCall(Dispatcher.getInstance().getLstOperator());
+			hangUpCall(dispatcher.getLstOperator());
 			
 			// Hang Up Supervisors Calls
-			hangUpCall(Dispatcher.getInstance().getLstSupervisor());
+			hangUpCall(dispatcher.getLstSupervisor());
 			
 			// Hang Up Directors Calls
-			hangUpCall(Dispatcher.getInstance().getLstDirector());
+			hangUpCall(dispatcher.getLstDirector());
 		}
 	}
 	
@@ -71,18 +84,21 @@ public class HangUpCallThread extends Thread {
 					
 					// Hang Up Call
 					LOGGER.log(Level.INFO, String.format("Hang Up Call %d. Free Employee %s", callAssigned.getId(), employee.getCode()));
-					Dispatcher.getInstance().getLstCallsInProgress().remove(callAssigned);
+					dispatcher.getLstCallsInProgress().remove(callAssigned);
 					employee.setCallAssigned(null);
 					
+					// Add Call Attended Counter
+					dispatcher.setQtyCallsAttended(dispatcher.getQtyCallsAttended() + 1);
+					
 					// Check if exist Calls in Hold
-					if(!Dispatcher.getInstance().getLstCallsInHold().isEmpty() &&
-							Dispatcher.getInstance().getLstCallsInProgress().size() < Dispatcher.MAXIMUM_SIMULTANEOUS_CALLS) {
+					if(!dispatcher.getLstCallsInHold().isEmpty() &&
+							dispatcher.getLstCallsInProgress().size() < Dispatcher.MAXIMUM_SIMULTANEOUS_CALLS) {
 				
 						// Obtain a Call in Hold
-						callInHold = Dispatcher.getInstance().getLstCallsInHold().remove(0);
+						callInHold = dispatcher.getLstCallsInHold().remove(0);
 						
 						// Add New Call to List Calls in Progress
-						Dispatcher.getInstance().getLstCallsInProgress().add(callInHold);
+						dispatcher.getLstCallsInProgress().add(callInHold);
 						
 						// Set Call Assigned
 						employee.setCallAssigned(callInHold);
@@ -92,6 +108,9 @@ public class HangUpCallThread extends Thread {
 					
 						// Free Employee
 						employee.setBusy(false);
+
+						// Add Call Attended Counter
+						dispatcher.setQtyCallsAttended(dispatcher.getQtyCallsAttended() + 1);
 					}
 				}
 			}

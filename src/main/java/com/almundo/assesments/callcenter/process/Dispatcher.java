@@ -22,11 +22,11 @@ public class Dispatcher {
 	 * Constant Maximum Simultaneous Calls
 	 */
 	public static final int MAXIMUM_SIMULTANEOUS_CALLS = 10;
-	
+
 	/**
-	 * Dispatcher Instance
+	 * Quantity Calls Attended
 	 */
-	private static Dispatcher instance;
+	private int qtyCallsAttended;
 	
 	/**
 	 * List Calls in Progress
@@ -52,25 +52,26 @@ public class Dispatcher {
 	 * List Directors
 	 */
 	private List<Employee> lstDirector;
-	
-	/**
-	 * Get Dispatcher Instance
-	 * @return Dispatcher Instance
-	 */
-	public static Dispatcher getInstance() {
 		
-		if(instance == null) {
-			
-			instance = new Dispatcher();
-		}
-		return instance;
-	}
+	/**
+	 * Dispatcher
+	 * @param lstOperator List Operators
+	 * @param lstSupervisor List Supervisors
+	 * @param lstDirector List Directors
+	 */
+	public Dispatcher(List<Employee> lstOperator, List<Employee> lstSupervisor, List<Employee> lstDirector) {
 	
-	public Dispatcher() {
+		// Save List Employees
+		this.lstOperator = lstOperator;
+		this.lstSupervisor = lstSupervisor;
+		this.lstDirector = lstDirector;
 		
 		// Init List Calls
 		lstCallsInProgress = new CopyOnWriteArrayList<>();
 		lstCallsInHold = new CopyOnWriteArrayList<>();
+		
+		// Init Counter Calls Attended
+		qtyCallsAttended = 0;
 	}
 	
 	/**
@@ -140,23 +141,19 @@ public class Dispatcher {
 		return lstOperator;
 	}
 
-	public void setLstOperator(List<Employee> lstOperator) {
-		this.lstOperator = lstOperator;
-	}
-
 	public List<Employee> getLstSupervisor() {
 		return lstSupervisor;
-	}
-
-	public void setLstSupervisor(List<Employee> lstSupervisor) {
-		this.lstSupervisor = lstSupervisor;
 	}
 
 	public List<Employee> getLstDirector() {
 		return lstDirector;
 	}
 
-	public void setLstDirector(List<Employee> lstDirector) {
-		this.lstDirector = lstDirector;
+	public int getQtyCallsAttended() {
+		return qtyCallsAttended;
+	}
+
+	public void setQtyCallsAttended(int qtyCallsAttended) {
+		this.qtyCallsAttended = qtyCallsAttended;
 	}
 }
