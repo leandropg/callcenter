@@ -12,7 +12,7 @@ public class LogFormatter extends Formatter {
 
 	/**
 	 * Log Format
-	 * @record Log Record
+	 * @param logRecord Log Record
 	 */
 	@Override
 	public String format(LogRecord logRecord) {

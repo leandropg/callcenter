@@ -6,8 +6,7 @@ import com.almundo.assesments.callcenter.model.Employee;
 import com.almundo.assesments.callcenter.process.CallGeneratorThread;
 import com.almundo.assesments.callcenter.process.Dispatcher;
 import com.almundo.assesments.callcenter.process.HangUpCallThread;
-
-import util.DelayUtil;
+import com.almundo.assesments.callcenter.util.DelayUtil;
 
 /**
  * Call Center Application

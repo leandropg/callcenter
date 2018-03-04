@@ -6,8 +6,7 @@ import java.util.logging.Logger;
 
 import com.almundo.assesments.callcenter.model.Call;
 import com.almundo.assesments.callcenter.model.Employee;
-
-import util.DelayUtil;
+import com.almundo.assesments.callcenter.util.DelayUtil;
 
 /**
  * Hang Up Call Thread

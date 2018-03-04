@@ -1,9 +1,8 @@
 package com.almundo.assesments.callcenter.process;
 
 import com.almundo.assesments.callcenter.model.Call;
-
-import util.DelayUtil;
-import util.RandomUtil;
+import com.almundo.assesments.callcenter.util.DelayUtil;
+import com.almundo.assesments.callcenter.util.RandomUtil;
 
 /**
  * Call Generator Thread

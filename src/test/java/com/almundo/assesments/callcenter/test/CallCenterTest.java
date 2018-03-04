@@ -1,4 +1,4 @@
-package com.almundo.assesments.callcenter;
+package com.almundo.assesments.callcenter.test;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -9,13 +9,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.almundo.assesments.callcenter.log.LogUtil;
+import com.almundo.assesments.callcenter.CallCenter;
 import com.almundo.assesments.callcenter.model.Director;
 import com.almundo.assesments.callcenter.model.Employee;
 import com.almundo.assesments.callcenter.model.Operator;
 import com.almundo.assesments.callcenter.model.Supervisor;
-
-import util.DelayUtil;
+import com.almundo.assesments.callcenter.util.DelayUtil;
+import com.almundo.assesments.callcenter.util.LogUtil;
 
 /**
  * Unit Test for Call Center

@@ -1,4 +1,4 @@
-package util;
+package com.almundo.assesments.callcenter.util;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,8 +58,8 @@ public class DelayUtil {
 	
 	/**
 	 * Delay Random Seconds
-	 * @param lowLimit Low Bound
-	 * @param highLimit High Bound
+	 * @param lowBound Low Bound
+	 * @param highBound High Bound
 	 */
 	public static void delayRandomSeconds(int lowBound, int highBound) {
 		
