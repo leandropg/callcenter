@@ -27,7 +27,7 @@ public class RandomUtil {
 
 		// Obtain Random Value in the Range
 		random = new Random(); 
-		randomValue = random.nextInt(highBound - lowBound) + lowBound;		
+		randomValue = random.nextInt(highBound - lowBound + 1) + lowBound;		
 		
 		// Return Random Value
 		return randomValue;
