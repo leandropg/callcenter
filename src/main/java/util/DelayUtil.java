@@ -12,6 +12,13 @@ public class DelayUtil {
 	 * Logger Instance
 	 */
 	private static final Logger LOGGER = Logger.getLogger(DelayUtil.class.getName());
+
+	/**
+	 * Avoid Create Objects
+	 */
+	private DelayUtil( ) {
+		
+	}
 	
 	/**
 	 * Delay Milliseconds
@@ -27,6 +34,7 @@ public class DelayUtil {
 		} catch (InterruptedException e) {
 			
 			LOGGER.log(Level.SEVERE, "Error Delay Milliseconds", e);
+			Thread.currentThread().interrupt();
 		}
 	}
 	
@@ -39,11 +47,12 @@ public class DelayUtil {
 		try {
 			
 			// Sleep in Seconds
-			Thread.sleep(seconds * 1000);
+			Thread.sleep(seconds * 1000L);
 		
 		} catch (InterruptedException e) {
 			
 			LOGGER.log(Level.SEVERE, "Error Delay Seconds", e);
+		    Thread.currentThread().interrupt();
 		}
 	}
 	

@@ -80,20 +80,14 @@ public class Dispatcher {
 	 */
 	public void dispatchCall(Call incomingCall) {
 
-		// Try Assign Call to Operator
-		if(!assignCallToEmployee(incomingCall, lstOperator)) {
-			
-			// Try Assign Call to Supervisor
-			if(!assignCallToEmployee(incomingCall, lstSupervisor)) {
-				
-				// Try Assign Call to Director
-				if(!assignCallToEmployee(incomingCall, lstDirector)) {
-					
-					// Put Call in Hold
-					LOGGER.log(Level.INFO, String.format("Put Call Id %s in Hold...", incomingCall.getId()));
-					lstCallsInHold.add(incomingCall);
-				}
-			}
+		// Try Assign Call to Employee
+		if(!assignCallToEmployee(incomingCall, lstOperator) &&
+				!assignCallToEmployee(incomingCall, lstSupervisor) &&
+				!assignCallToEmployee(incomingCall, lstDirector)) {
+
+			// Put Call in Hold
+			LOGGER.log(Level.INFO, "Put Call {0} in Hold...", incomingCall.getId());
+			lstCallsInHold.add(incomingCall);
 		}
 	}
 	
@@ -119,7 +113,7 @@ public class Dispatcher {
 				// Assign Call to Employee
 				employee.setCallAssigned(incomingCall);
 				employee.setBusy(true);
-				LOGGER.log(Level.INFO, String.format("Incoming Call %d assigned to Employee %s. Call Duration %d Seconds", incomingCall.getId(), employee.getCode(), incomingCall.getDuration()));
+				LOGGER.log(Level.INFO, "Incoming Call {0} assigned to Employee {1}. Call Duration {2} Seconds", new Object[] {incomingCall.getId(), employee.getCode(), incomingCall.getDuration()});
 								
 				// Set Flag Call Assigned
 				isCallAssigned = true;

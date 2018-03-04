@@ -83,7 +83,7 @@ public class HangUpCallThread extends Thread {
 				} else {
 					
 					// Hang Up Call
-					LOGGER.log(Level.INFO, String.format("Hang Up Call %d. Free Employee %s", callAssigned.getId(), employee.getCode()));
+					LOGGER.log(Level.INFO, "Hang Up Call {0}. Free Employee {1}", new Object[] {callAssigned.getId(), employee.getCode()});
 					dispatcher.getLstCallsInProgress().remove(callAssigned);
 					employee.setCallAssigned(null);
 					
@@ -102,7 +102,7 @@ public class HangUpCallThread extends Thread {
 						
 						// Set Call Assigned
 						employee.setCallAssigned(callInHold);
-						LOGGER.log(Level.INFO, String.format("Call in Hold %d assigned to Employee %s. Call Duration %d Seconds", callInHold.getId(), employee.getCode(), callInHold.getDuration()));
+						LOGGER.log(Level.INFO, "Call in Hold {0} assigned to Employee {1}. Call Duration {2} Seconds", new Object[] {callInHold.getId(), employee.getCode(), callInHold.getDuration()});
 					
 					} else {
 					

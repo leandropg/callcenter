@@ -14,11 +14,6 @@ import util.DelayUtil;
  */
 public class CallCenter {
 
-	/**
-	 * Dispatcher
-	 */
-	private Dispatcher dispatcher;
-	
     /**
      * Start Operation
      * @param lstOperator List Operators
@@ -28,7 +23,9 @@ public class CallCenter {
      */
 	public void startOperation(List<Employee> lstOperator, List<Employee> lstSupervisor, List<Employee> lstDirector, int maxQtyCalls) {
   
-    	// Create Dispatcher with List Employees
+		Dispatcher dispatcher;
+
+		// Create Dispatcher with List Employees
     	dispatcher = new Dispatcher(lstOperator, lstSupervisor, lstDirector);
     	
     	// Start Call Generator Thread

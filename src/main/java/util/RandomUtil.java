@@ -8,6 +8,13 @@ import java.util.Random;
 public class RandomUtil {
 
 	/**
+	 * Avoid Create Objects
+	 */
+	private RandomUtil( ) {
+		
+	}
+	
+	/**
 	 * Obtain Random Range Value
 	 * @param lowBound Low Bound
 	 * @param highBound High Bound

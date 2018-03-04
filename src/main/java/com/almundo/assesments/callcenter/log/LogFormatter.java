@@ -19,7 +19,10 @@ public class LogFormatter extends Formatter {
 		
 		Calendar calendar;
 		SimpleDateFormat simpleDateFormat;
+		String message;
 		StringBuilder sb;
+		StringBuilder token;
+		Object [] parameters;
 		
 		// Configure Simple Date Format
 		simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd - HH:mm:ss");
@@ -33,7 +36,29 @@ public class LogFormatter extends Formatter {
 		sb.append(" [");
 		sb.append(logRecord.getLevel().getName());
 		sb.append("] > ");
-		sb.append(logRecord.getMessage());
+		
+		// Obtain Message
+		message = logRecord.getMessage();
+		
+		// Get Parameters
+		parameters = logRecord.getParameters();
+		
+		if(parameters != null) {
+	
+			// Iterate over all Parameters
+			for(int i = 0; i < parameters.length; i++) {
+				
+				// Obtain Token to replace
+				token = new StringBuilder();
+				token.append("{");
+				token.append(i);
+				token.append("}");
+				
+				// Replace Token
+				message = message.replace(token, String.valueOf(parameters[i]));
+			}
+		}
+		sb.append(message);
 		sb.append("\n");
 		return sb.toString();
 	}

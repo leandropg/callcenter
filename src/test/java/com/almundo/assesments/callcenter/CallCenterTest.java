@@ -70,18 +70,18 @@ public class CallCenterTest {
     	lstOperator.add(new Operator("OP-5"));
     	lstOperator.add(new Operator("OP-6"));
     	lstOperator.add(new Operator("OP-7"));
-    	LOGGER.log(Level.INFO, String.format("There are %d Operators", lstOperator.size()));
+    	LOGGER.log(Level.INFO, "There are {0} Operators", lstOperator.size());
 
     	// Create List Supervisor
     	lstSupervisor = new CopyOnWriteArrayList<>();
     	lstSupervisor.add(new Supervisor("SUP-1"));
     	lstSupervisor.add(new Supervisor("SUP-2"));
-    	LOGGER.log(Level.INFO, String.format("There are %d Supervisors", lstSupervisor.size()));
+    	LOGGER.log(Level.INFO, "There are {0} Supervisors", lstSupervisor.size());
     	
     	// Create List Director
     	lstDirector = new CopyOnWriteArrayList<>();
     	lstDirector.add(new Director("DIR-1"));
-    	LOGGER.log(Level.INFO, String.format("There are %d Directors", lstDirector.size()));
+    	LOGGER.log(Level.INFO, "There are {0} Directors", lstDirector.size());
 		
 		// Init Call Center Instance
 		callCenter = new CallCenter();
@@ -101,6 +101,7 @@ public class CallCenterTest {
     	// Start Operation
     	LOGGER.log(Level.INFO, "It's 8:00 am... The operation is starting...");
     	LOGGER.log(Level.INFO, "Waiting Incoming Calls...");
+    	DelayUtil.delaySeconds(2);
     	callCenter.startOperation(lstOperator, lstSupervisor, lstDirector, MAXIMUM_CALLS_SIMULATE);
     	LOGGER.log(Level.INFO, "It's 5:00 pm... The operation has finished...");
     }
