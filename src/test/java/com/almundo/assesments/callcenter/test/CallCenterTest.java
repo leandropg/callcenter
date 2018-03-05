@@ -31,7 +31,7 @@ public class CallCenterTest {
 	/**
 	 * Constant Maximum Calls Simulate
 	 */
-	public static final int MAXIMUM_CALLS_SIMULATE = 50;
+	public static final int MAXIMUM_CALLS_SIMULATE = 40;
 	
 	/**
 	 * Call Center Instance
