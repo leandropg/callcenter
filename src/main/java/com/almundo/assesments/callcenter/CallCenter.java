@@ -13,6 +13,11 @@ import com.almundo.assesments.callcenter.util.DelayUtil;
  */
 public class CallCenter {
 
+	/**
+	 * Dispatcher
+	 */
+	private Dispatcher dispatcher;
+	
     /**
      * Start Operation
      * @param lstOperator List Operators
@@ -21,8 +26,6 @@ public class CallCenter {
      * @param maxQtyCalls Maximum Quantity Calls
      */
 	public void startOperation(List<Employee> lstOperator, List<Employee> lstSupervisor, List<Employee> lstDirector, int maxQtyCalls) {
-  
-		Dispatcher dispatcher;
 
 		// Create Dispatcher with List Employees
     	dispatcher = new Dispatcher(lstOperator, lstSupervisor, lstDirector);
@@ -41,4 +44,12 @@ public class CallCenter {
     		
     	} while(dispatcher.getQtyCallsAttended() < maxQtyCalls);
     }
+
+	/**
+	 * Get Dispatcher
+	 * @return Dispatcher
+	 */
+	public Dispatcher getDispatcher() {
+		return dispatcher;
+	}
 }

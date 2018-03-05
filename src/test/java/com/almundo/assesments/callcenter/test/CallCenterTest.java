@@ -5,6 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -104,5 +105,8 @@ public class CallCenterTest {
     	DelayUtil.delaySeconds(2);
     	callCenter.startOperation(lstOperator, lstSupervisor, lstDirector, MAXIMUM_CALLS_SIMULATE);
     	LOGGER.log(Level.INFO, "It's 5:00 pm... The operation has finished...");
+    	
+    	// Check if Random Value is in the range
+    	Assertions.assertTrue(callCenter.getDispatcher().getQtyCallsAttended() == MAXIMUM_CALLS_SIMULATE);
     }
 }
