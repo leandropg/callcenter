@@ -106,7 +106,7 @@ public class CallCenterTest {
     	callCenter.startOperation(lstOperator, lstSupervisor, lstDirector, MAXIMUM_CALLS_SIMULATE);
     	LOGGER.log(Level.INFO, "It's 5:00 pm... The operation has finished...");
     	
-    	// Check if Random Value is in the range
+    	// Check if Call Center attended 50 Calls
     	Assertions.assertTrue(callCenter.getDispatcher().getQtyCallsAttended() == MAXIMUM_CALLS_SIMULATE);
     }
 }
